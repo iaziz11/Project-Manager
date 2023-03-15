@@ -1,0 +1,41 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    History
+{% endblock %}
+
+{% block main %}
+<main class="container py-5 text-center">
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th class="text-start"></th>
+                <th class="text-start">Last Name</th>
+                <th class="text-start">First Name</th>
+                <th class="text-end">ID #</th>
+                <th class="text-end">E-mail</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+                {% for m in team %}
+                    <tr>
+                        <td class="text-start"><img src="/static/upload_image.png" class="button_img"></td>
+                        <td class="text-start">{{m["last_name"]}}</td>
+                        <td class="text-start">{{m["first_name"]}}</td>
+                        <td class="text-end">{{m["employee_id"]}}</td>
+                        <td class="text-end">{{m["email"]}}</td>
+                        <td class="text-end">
+                            <form action="/team" method="post">
+                                <input name="id" type="hidden" value="{{m['id']}}">
+                                <button type="submit">View</button>
+                            </form></td>
+                    </tr>
+                {% endfor %}
+        </tbody>
+    </table>
+    <form action="/addmember" method="get">
+        <button class="btn btn-primary" type="submit"><img src="/static/add_user.png" class="button_img">Add Team Member</button>
+    </form>
+{% endblock %}

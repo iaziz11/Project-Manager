@@ -1,0 +1,47 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Register
+{% endblock %}
+
+{% block main %}
+<form action="/addproject" method="form">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-sm">
+                <div class="row">
+                    Project Name (*)
+                    <input type="text" id="projname" name="projname" required autocomplete="off">
+                </div>
+                <div class="row">
+                    Deadline (*)
+                    <input id="deadline" name="deadline" type="datetime-local">
+                </div>
+                <div class="row">
+                    Priority (*)
+                    <select required>
+                        <option value="high">High</option>
+                        <option value="med">Medium</option>
+                        <option value="low">Low</option>
+                    </select>
+                </div>
+                <div class="row">
+                    Description (*)
+                    <input type="text" id="desc" name="desc" required autocomplete="off">
+                </div>
+            </div>
+            <div class="col-sm">
+                <table></table>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <button class="btn btn-primary" type="submit" id="addproject">Add Project</button>
+        </div>
+    </div>
+</form>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#deadline').min = new Date().toLocaleDateString('en-ca');
+    });
+ </script>
+{% endblock %}

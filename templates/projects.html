@@ -1,0 +1,35 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    History
+{% endblock %}
+
+{% block main %}
+<main class="container py-5 text-center">
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th class="text-start">Name</th>
+                <th class="text-end">Created</th>
+                <th class="text-end">Deadline</th>
+                <th class="text-end">Status</th>
+                <th class="text-end">Priority</th>
+            </tr>
+        </thead>
+        <tbody>
+                {% for p in projects %}
+                    <tr>
+                        <td class="text-start"><a href="#">{{p["name"]}}</a></td>
+                        <td class="text-end">{{p["start_time"]}}</td>
+                        <td class="text-end">{{p["end_time"]}}</td>
+                        <td class="text-end">{{p["status"]}}</td>
+                        <td class="text-end">{{p["priority"]}}</td>
+                    </tr>
+                {% endfor %}
+        </tbody>
+    </table>
+    <form action="/addproject" method="get">
+        <button class="btn btn-primary" type="submit"><img src="/static/add_project.png" class="button_img">Create Project</button>
+    </form>
+{% endblock %}

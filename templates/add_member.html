@@ -1,0 +1,37 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Register
+{% endblock %}
+
+{% block main %}
+<div class="container">
+    <div class="row justify-content-center">
+      <div class="col-sm" id="upload_img">
+        <img src="/static/upload_image.png" id="upload_img" class="rounded-circle border border-dark"> <br>
+        <button class="btn btn-primary"><img src="/static/upload_button.png" class="button_img">Upload Profile Picture</button>
+      </div>
+      <div class="col-sm">
+        <form action="/addmember" method="post">
+            <div class="row" id="member_info">
+                First Name (*)
+                <input type="text" id="firstname" name="firstname" required autocomplete="off">
+            </div>
+            <div class="row" id="member_info">
+                Last Name (*)
+                <input type="text" id="lastname" name="lastname" required autocomplete="off">
+            </div>
+            <div class="row" id="member_info">
+              E-mail (*)
+              <input type="text" id="email" name="email" required autocomplete="off">
+          </div>
+            <div class="row" id="member_info">
+                Employee ID #
+                <input type="text" id="idnum" name="idnum" autocomplete="off">
+            </div>
+            <button class="btn btn-primary" type="submit">Add Team Member</button>
+        </form>
+      </div>
+    </div>
+</div>
+{% endblock %}
