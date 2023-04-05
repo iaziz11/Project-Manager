@@ -1,9 +1,7 @@
 import os
 import sqlite3
-from flask import Flask, flash, redirect, render_template, request, session, url_for, send_from_directory, abort
-from flask_session import Session
+from flask import Flask, flash, redirect, render_template, request, session, abort
 from werkzeug.security import check_password_hash, generate_password_hash
-from werkzeug.utils import secure_filename
 from functools import wraps
 from datetime import datetime
 
@@ -16,7 +14,8 @@ app = Flask(__name__)
 app.config["SESSION_PERMANENT"] = False
 app.config["SESSION_TYPE"] = "filesystem"
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-Session(app)
+app.secret_key = b'_5#y2L"F6Q1j\n\xec]/'
+#Session(app)
 
 con = sqlite3.connect("data.db", check_same_thread=False)
 cur = con.cursor()
@@ -195,8 +194,8 @@ def login():
         #  Remember which user has logged in
         session["user_id"] = user[0]
 
-        #  Redirect user to projects
-        return redirect("/projects")
+        #  Redirect user to index
+        return redirect("/")
 
     else:
         return render_template("login.html")
