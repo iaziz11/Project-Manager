@@ -432,6 +432,7 @@ def view_member():
 @app.route("/viewproject", methods=["GET", "POST"])
 @login_required
 def view_project():
+
     """View project"""
 
     # User wants to mark a project as completed or remove a project
@@ -492,3 +493,7 @@ def view_project():
             abort(403)
 
         return render_template("view_project.html", team=team, p=project[0])
+    
+
+if __name__ == '__main__':
+    app.run()
