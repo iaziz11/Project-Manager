@@ -1,37 +1,56 @@
 {% extends "layout.html" %}
-
-{% block title %}
-    Register
-{% endblock %}
+	{% block title %}
+		Add Member
+	{% endblock %}
 
 {% block main %}
-<div class="container">
-    <div class="row justify-content-center">
-      <div class="col-sm" id="upload_img">
-        <img src="/static/upload_image.png" id="upload_img" class="rounded-circle border border-dark"> <br>
-        <button class="btn btn-primary"><img src="/static/upload_button.png" class="button_img">Upload Profile Picture</button>
-      </div>
-      <div class="col-sm">
-        <form action="/addmember" method="post">
-            <div class="row" id="member_info">
-                First Name (*)
-                <input type="text" id="firstname" name="firstname" required autocomplete="off">
-            </div>
-            <div class="row" id="member_info">
-                Last Name (*)
-                <input type="text" id="lastname" name="lastname" required autocomplete="off">
-            </div>
-            <div class="row" id="member_info">
-              E-mail (*)
-              <input type="text" id="email" name="email" required autocomplete="off">
-          </div>
-            <div class="row" id="member_info">
-                Employee ID #
-                <input type="text" id="idnum" name="idnum" autocomplete="off">
-            </div>
-            <button class="btn btn-primary" type="submit">Add Team Member</button>
-        </form>
-      </div>
-    </div>
-</div>
+	<script>
+		//Make button click file upload
+		//https://stackoverflow.com/questions/31693296/is-it-possible-to-make-a-button-as-file-upload-button
+		$(document).ready(function(){
+			$("#pfpbutton").click(function(event){
+				event.preventDefault()
+				$("#pfpupload").click();
+			});
+		})
+
+		//Upload profile picture
+		//https://stackoverflow.com/questions/12368910/html-display-image-after-selecting-filename
+		function readURL(input) {
+			if (input.files && input.files[0]) {
+				var reader = new FileReader();
+				reader.onload = function (e) {
+					$('#upload_img').attr('src', e.target.result);
+				};
+				reader.readAsDataURL(input.files[0]);
+			}
+		}
+	</script>
+
+	<form action="/addmember" method="post" enctype=multipart/form-data>
+		<div class="mb-3" style="width:50%; margin:auto; height:50%">
+			<img alt="upload image" src="/static/upload_image.png" id="upload_img" class="rounded-circle border border-dark">
+		</div>
+		<div class="mb-5">
+			<input accept=".jpg" type="file" id="pfpupload" onchange="readURL(this)" name="pfpupload" hidden>
+			<button class="btn btn-primary" id="pfpbutton" type="button"><img alt="button upload" src="/static/upload_button.png" class="button_img">Upload Profile Picture</button>
+		</div>
+		<div class="mb-3">
+			<label for="firstname"><strong>First Name</strong></label>
+			<input class="form-control mx-auto w-auto" type="text" id="firstname" maxlength="12" name="first_name" placeholder="Required" required autocomplete="off">
+		</div>
+		<div class="mb-3">
+			<label for="lastname"><strong>Last Name</strong></label>
+			<input class="form-control mx-auto w-auto" type="text" id="lastname" maxlength="12" name="last_name" placeholder="Required" required autocomplete="off">
+		</div>
+		<div class="mb-3">
+			<label for="email"><strong>E-Mail</strong></label>
+			<input class="form-control mx-auto w-auto" type="text" id="email" maxlength="20" name="email" placeholder="Required" required autocomplete="off">
+		</div>
+		<div class="mb-3">
+			<label for="employee_id"><strong>Employee ID#</strong></label>
+			<input class="form-control mx-auto w-auto" type="text" id="employee_id" maxlength="15" name="employee_id" autocomplete="off">
+		</div>
+		<button class="btn btn-primary" type="submit">Add Team Member</button>
+	</form>
 {% endblock %}

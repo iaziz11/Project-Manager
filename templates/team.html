@@ -1,41 +1,55 @@
 {% extends "layout.html" %}
 
 {% block title %}
-    History
+    Team
 {% endblock %}
 
 {% block main %}
-<main class="container py-5 text-center">
-
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th class="text-start"></th>
-                <th class="text-start">Last Name</th>
-                <th class="text-start">First Name</th>
-                <th class="text-end">ID #</th>
-                <th class="text-end">E-mail</th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-                {% for m in team %}
+    <main class="container py-5 text-center">
+        <div class="table-responsive">
+        <table class="table table-striped" style="overflow-x: scroll;">
+            <thead>
+                {% if team %}
                     <tr>
-                        <td class="text-start"><img src="/static/upload_image.png" class="button_img"></td>
-                        <td class="text-start">{{m["last_name"]}}</td>
-                        <td class="text-start">{{m["first_name"]}}</td>
-                        <td class="text-end">{{m["employee_id"]}}</td>
-                        <td class="text-end">{{m["email"]}}</td>
-                        <td class="text-end">
-                            <form action="/team" method="post">
-                                <input name="id" type="hidden" value="{{m['id']}}">
-                                <button type="submit">View</button>
-                            </form></td>
+                        <th class="text-start"></th>
+                        <th class="text-start">Last Name</th>
+                        <th class="text-start">First Name</th>
+                        <th class="text-end">ID #</th>
+                        <th class="text-end">E-mail</th>
+                        <th></th>
                     </tr>
-                {% endfor %}
-        </tbody>
-    </table>
-    <form action="/addmember" method="get">
-        <button class="btn btn-primary" type="submit"><img src="/static/add_user.png" class="button_img">Add Team Member</button>
-    </form>
+                {% else %}
+                    <tr>
+                        <th></th>
+                    </tr>
+                {% endif %}
+            </thead>
+            <tbody>
+                {% if team %}
+                    {% for m in team %}
+                        <tr>
+                            <td class="text-start"><img src="{{m['pfp']}}" class="profile_thumb"></td>
+                            <td class="text-start">{{m["last_name"]}}</td>
+                            <td class="text-start">{{m["first_name"]}}</td>
+                            <td class="text-end">{{m["employee_id"]}}</td>
+                            <td class="text-end">{{m["email"]}}</td>
+                            <td class="text-end">
+                                <form action="/viewmember" method="get">
+                                    <input name="id" type="hidden" value="{{m['id']}}">
+                                    <button class="btn btn-primary btn-sm" type="submit">View</button>
+                                </form>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                {% else %}
+                    <tr>
+                        <td>No team members to display</td>
+                    </tr>
+                {% endif %}
+            </tbody>
+        </table>
+        </div>
+        <form action="/addmember" method="get">
+            <button class="btn btn-primary" type="submit"><img src="/static/add_user.png" class="button_img">Add Team Member</button>
+        </form>
 {% endblock %}

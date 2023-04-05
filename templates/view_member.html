@@ -1,0 +1,30 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    View Member
+{% endblock %}
+
+{% block main %}
+	<form action="/viewmember", method="post">
+		<div class="mb-3" style="width:50%; margin:auto; height:50%">
+			<img src="{{p['pfp']}}" id="upload_img" class="rounded-circle border border-dark">
+		</div>
+		<div class="mb-3">
+			<label for="firstname"><strong>First Name</strong></label>
+			<p style="word-break: break-all">{{p["first_name"]}}</p>
+		</div>
+		<div class="mb-3">
+			<label for="lastname"><strong>Last Name</strong></label>
+			<p style="word-break: break-all">{{p["last_name"]}}</p>
+		</div>
+		<div class="mb-3">
+			<label for="email"><strong>E-Mail</strong></label>
+			<p style="word-break: break-all">{{p["email"]}}</p>
+		</div>
+		<div class="mb-3">
+			<label for="idnum"><strong>Employee ID#</strong></label>
+			<p style="word-break: break-all">{{p["employee_id"]}}</p>
+		</div>
+		<button class="btn btn-danger" name="delete" type="submit" value="{{p['id']}}"><img src="/static/trash.png" class="button_img">Delete Member</button>
+	</form>
+{% endblock %}

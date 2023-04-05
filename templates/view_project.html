@@ -1,0 +1,49 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    View Project
+{% endblock %}
+
+{% block main %}
+
+<form action="/viewproject" method="post">
+    <div class="mb-3">
+        <label for="pname"><strong>Project Name</strong></label>
+        <p style="word-break: break-all">{{p["name"]}}</p>
+    </div>
+    <div class="mb-3">
+        <label for="deadline"><strong>Deadline</strong></label>
+        <p>{{p["deadline"]}}</p>
+    </div>
+    <div class="mb-3">
+        <label for="prio"><strong>Priority</strong></label>
+        <p>{{p["priority"]}}</p>
+    </div>
+    <div class="mb-3">
+        <label for="desc"><strong>Description</strong></label>
+        <p style="word-break: break-all">{{p["description"]}}</p>
+    </div>
+    <div class="mb-3">
+        <div class="table-responsive" style="max-height:300px; width:auto; max-width:90%; margin:auto">
+            <table class="table table-bordered" id="teamtable" style="width:auto; margin:auto;">
+                <thead>
+                    <th>Last Name</th>
+                    <th>First Name</th>
+                    <th>ID #</th>
+                </thead>
+                <tbody>
+                    {% for m in team %}
+                    <tr>
+                        <td>{{m["last_name"]}}</td>
+                        <td>{{m["first_name"]}}</td>
+                        <td name="eid">{{m["employee_id"]}}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <button class="btn btn-primary" name="complete" type="submit" value="{{p['id']}}"><img src="/static/check.png" class="button_img">Mark As Completed</button>
+    <button class="btn btn-danger" name="delete" type="submit" value="{{p['id']}}"><img src="/static/trash.png" class="button_img">Delete Project</button>
+</form>
+{% endblock %}
